@@ -1,6 +1,7 @@
 개요 
 ```
-로컬에서 쿠버네티스 클러스터 구축 후 storage class 붙이려다 팀원분이 emptydir나 hostpath 활용이 더 좋아보인다고 해주셨다
+storageclass - pvc를 로컬에서 구현해야하는 상황
+로컬에서 쿠버네티스 클러스터 구축 후 storage class 붙이려다 팀원분이 간단한 상황이니 emptydir나 hostpath 활용이 더 좋아보인다고 해주셨다
 그래서 이들을 좀 더 알아보고자한다.
 ```
 
@@ -66,6 +67,5 @@ spec:
 ### 판단
 ```
 현재 일시적인 실습 상황
-node-1, node-2가 존재
-emptyDir 파드를 하나 만들어서 volume잡고 pvc 활용하는게 더 좋다고 생각
+간단한 활용을 위해 hostPath사용
 ```
