@@ -67,5 +67,6 @@ spec:
 ### 판단
 ```
 현재 일시적인 실습 상황
-간단한 활용을 위해 hostPath사용
+간단한 활용을 위해 emtpyDir / hostPath / pv,pvc 중 
+hostPath로 pv를 잡고 pvc로 활용할 생각
 ```
