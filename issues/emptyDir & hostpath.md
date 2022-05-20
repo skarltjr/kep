@@ -63,11 +63,14 @@ spec:
       path: /node-v
       type: DirectoryOrCreate
 ```
+### pv(local storage 사용 시)
+```
+아래처럼 hostpath와 비슷하게 호스트에 있는 local path를 활용한 pv예시가 있어서 참고해봄
+```
+- ![스크린샷 2022-05-20 오후 2 36 59](https://user-images.githubusercontent.com/62214428/169457976-f4e205fc-513a-46b6-93d5-14e98da9a667.png)
 
 ### 판단
 ```
 현재 일시적인 실습 상황
-간단한 활용을 위해 emtpyDir / hostPath / pv,pvc 중 
-hostPath로 pv를 잡고 pvc로 활용할 생각
+local path를 활용한 pv예시가 있어서 참고해보기로함
 ```
-- https://github.com/skarltjr/Kubernetes-with-Docker/blob/main/쿠버네티스(6)/note.md 참고
