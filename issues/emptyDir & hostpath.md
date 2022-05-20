@@ -70,3 +70,4 @@ spec:
 간단한 활용을 위해 emtpyDir / hostPath / pv,pvc 중 
 hostPath로 pv를 잡고 pvc로 활용할 생각
 ```
+- https://github.com/skarltjr/Kubernetes-with-Docker/blob/main/쿠버네티스(6)/note.md 참고
