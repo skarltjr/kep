@@ -62,3 +62,10 @@ spec:
       path: /node-v
       type: DirectoryOrCreate
 ```
+
+### 판단
+```
+현재 일시적인 실습 상황
+node-1, node-2가 존재
+emptyDir 파드를 하나 만들어서 volume잡고 pvc 활용하는게 더 좋다고 생각
+```
