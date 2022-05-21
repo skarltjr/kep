@@ -74,3 +74,39 @@ spec:
 현재 일시적인 실습 상황
 local path를 활용한 pv예시가 있어서 참고해보기로함
 ```
+```
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: standard
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  capacity:
+    storage: 5Gi
+  hostPath:
+    path: /data
+```
+```
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 5G
+```
+```
+1. pv를 생성한다
+- 현재 내 클러스터는 로컬에서 virtual box를 활용
+- pv는 hostpath를 활용함으로써 virtualbox(호스트) 공간을 활용
+2. pvc를 생성한다
+- pv와 storageclassName을 맞춰 pv를 할당받도록한다
+3. 결과적으로 하고자하는것은 tekton을 활용하여 다른 ci처럼 레포 clone -> 빌드 -> 이미지 생성 및 푸쉬
+- https://github.com/skarltjr/ci_cd_test를 활용했다
+```
