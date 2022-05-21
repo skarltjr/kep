@@ -141,6 +141,23 @@ spec:
       storage: 5G
 storageClassName을 맞춰서 pvc가 pv를 할당받을 수 있도록한다.
 ```
+
+```
+pipeline구성 전!!
+tekton catalog를 활용한 task
+
+tekton catalog란?
+미리 정의된 다양한 ttask들을 다운받을 수 있는 공간 / marketplace
+ex) git-clone, docker-build 등
+
+
+> git clone을 위한 task 다운
+kubectl apply -f https://raw.githubusercontent.com/tektoncd/catalog/main/task/git-clone/0.5/git-clone.yaml
+
+> buildah를 통한 docker image build & push를 위한 task다운
+kubectl apply -f https://raw.githubusercontent.com/tektoncd/catalog/main/task/buildah/0.3/buildah.yaml 
+
+```
 ```
 5. pipeline
 
