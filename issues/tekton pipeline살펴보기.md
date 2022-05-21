@@ -109,5 +109,101 @@ secrets:
 ```
 ```
 5. pv & pvc생성
-- pipelineRun에서 pipeline의 task수행 및 task들간 공유를 위한 볼륨인 workspace를
+- pipelineRun에서 pipeline의 task수행 및 task들간 공유를 위한 볼륨인 workspace를 위해 볼륨을 잡아줘야한다
+- 그래서 storageclass 혹은 pv - hostPath등의 방법으로 공간을 마련
+- pipelineRun은 pvc로 공간 요청
+
+> pv
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: standard
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  capacity:
+    storage: 5Gi
+  hostPath:
+    path: /data
+    
+> pvc
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 5G
+storageClassName을 맞춰서 pvc가 pv를 할당받을 수 있도록한다.
+```
+```
+5. pipeline
+
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: cicd-pipeline
+spec:
+  workspaces:
+    - name: pipeline-shared-data
+  tasks:
+
+    # git clone
+    - name: clone-repository
+      # Tekton catalog를 통해 다운받은 task의 파라미터 적용
+      params:
+        - name: url
+          value: https://github.com/skarltjr/ci_cd_test.git
+        - name: revision
+          value: "main"
+        - name: deleteExisting
+          value: "true"
+      # 참조하는 task 입력
+      taskRef:
+        kind: Task
+        name: git-clone
+      # 공간 설정(다양한 설정이 있으니 Tekton Hub 참조)
+      workspaces:
+        - name: output
+          workspace: pipeline-shared-data
+
+    # buildha
+    - name: build-image
+      # task 순서를 정하기 위한 설정
+      runAfter:
+        - clone-repository
+      params:
+        - name: IMAGE
+          value: "skarltjr/tekton:$(tasks.clone-repository.results.commit)"
+      taskRef:
+        kind: Task
+        name: buildah
+      workspaces:
+        - name: source
+          workspace: pipeline-shared-data
+```
+```
+6. pipelineRun
+  
+  
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: pipeline-run
+spec:
+  # pipeline을 수행하면서 필요한 Service Account 계정을 설정
+  # git과 docker 접근하기 위한 설정
+  serviceAccountName: docker-sa
+  pipelineRef:
+    name: cicd-pipeline
+  workspaces:
+    - name: pipeline-shared-data
+      # 위에서 생성한 pvc의 name 등록
+      persistentvolumeclaim:
+       claimName: pvc
 ```
