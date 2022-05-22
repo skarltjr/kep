@@ -17,6 +17,8 @@ k8s cli api call로 사용할 수 있다.
 1. 재사용 : tekton의 모든 task들은 다른 pipeline과 완전히 독립적으로 사용할 수 있다. 
 즉 모듈호하가 잘 되어있어 여러 pipeline에서 필요한 task들을 갖다 쓸 수 있다.
 2. 표준화 : tekton은 k8s의 custom resource를 사용해 정의
+ - https://frozenpond.tistory.com/111?category=1209055
+ - crd란 custom api라고 볼 수 있을 거 같다.
 3. 확장성 : tekton hub를 통해 이미 제작된 여러 task를 가져다 사용할 수 있다. github actions의 market place처럼
 
 
