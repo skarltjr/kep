@@ -102,6 +102,26 @@ spec:
       storage: 5G
 ```
 ```
+pv -pvc를 생성했고
+pvc를 활용한다.
+
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: pipeline-run
+spec:
+  # pipeline을 수행하면서 필요한 Service Account 계정을 설정
+  # git과 docker 접근하기 위한 설정
+  serviceAccountName: docker-sa
+  pipelineRef:
+    name: cicd-pipeline
+  workspaces:
+    - name: pipeline-shared-data
+      # 위에서 생성한 pvc의 name 등록
+      persistentvolumeclaim:
+       claimName: pvc
+```
+```
 1. pv를 생성한다
 - 현재 내 클러스터는 로컬에서 virtual box를 활용
 - pv는 hostpath를 활용함으로써 virtualbox(호스트) 공간을 활용
