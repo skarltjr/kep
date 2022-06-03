@@ -1,2 +1,0 @@
-- https://github.com/kubernetes-client/python
-- https://github.com/tektoncd/experimental
