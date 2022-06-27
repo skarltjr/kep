@@ -14,3 +14,6 @@ todo 해보기
 
 
 - 참고 : https://thisstory.tistory.com/entry/Docker0-default-network-IP-address-변경-docker-브릿지-기본IP-주소-변경
+```
+그런데 생각해보니 지금 도커 설치할때도 문제가 생겨서 멈추고 vm 튕긴다.
+```
